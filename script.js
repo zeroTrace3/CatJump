@@ -5,6 +5,10 @@ canvas.width = 600;
 canvas.height = 200;
 
 let cat = { x: 50, y: 150, width: 40, height: 40, velocityY: 0, jumping: false };
+
+const catImg = new Image();
+catImg.src = "cat.png";
+
 let obstacles = [];
 let gameOver = false;
 
@@ -31,7 +35,8 @@ function update() {
     }
 
     if (Math.random() < 0.02) {
-        obstacles.push({ x: 600, y: 150, width: 40, height: 40 });
+        let height = Math.floor(Math.random() * 30) + 30; // العقبات تكون بين 30 و60 ارتفاع
+        obstacles.push({ x: 600, y: 200 - height, width: 40, height: height });
     }
 
     for (let i = 0; i < obstacles.length; i++) {
@@ -53,8 +58,7 @@ function update() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = "black";
-    ctx.fillRect(cat.x, cat.y, cat.width, cat.height);
+    ctx.drawImage(catImg, cat.x, cat.y, cat.width, cat.height);
 
     ctx.fillStyle = "black";
     for (let obs of obstacles) {
